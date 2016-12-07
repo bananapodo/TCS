@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sample">
+	
+	<select id="selectBoardList" parameterType="hashmap" resultType="hashmap">
+		<![CDATA[
+			SELECT
+			    SEQ,
+				project_name, 
+				project_key, 
+				save_type, 
+				save_path, 
+				open_date, 
+				close_date,
+				register_id
+			FROM
+			    TCS.LIST
+			ORDER BY SEQ DESC
+		]]>
+	</select>
+	
+	<select id="selectBoardDetail" parameterType="hashmap" resultType="hashmap">
+    <![CDATA[
+        SELECT
+        seq,
+		project_name,
+		project_key,
+		first_name,
+		last_name,
+		email_addr,
+		email_agree,
+		email_auto,
+		sns_addr,
+		sns_agree,
+		sns_auto,
+		img_name,
+		email_date
+		from
+		TCS.detail
+       WHERE 
+            project_key = #{project_key}    
+        ORDER BY SEQ DESC     
+
+    ]]>
+</select>
+	
+	<update id="sendMail" parameterType="hashmap">
+    <![CDATA[
+        UPDATE TCS.detail
+        SET
+            email_date = now()
+        WHERE
+            email_addr = #{email_addr} and seq=#{seq}
+    ]]>
+</update>
+</mapper>
