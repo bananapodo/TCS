@@ -1,19 +1,24 @@
 package first.sample.controller;
 
 import java.util.Calendar;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import first.sample.service.SampleService;
 import first.common.common.CommandMap;
@@ -100,4 +105,37 @@ public class SampleController {
 
 		return mv;
 	}
+
+	@RequestMapping(value = "/sample/getJson.do")
+	@ResponseBody
+	public ModelAndView data(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mv = new ModelAndView("/sample/getJson");
+		String data = request.getParameter("data");
+
+		JSONParser jPaser = new JSONParser();
+
+		JSONObject jsonObj = (JSONObject) jPaser.parse(data);
+		String name = (String) jsonObj.get("name");
+		
+		mv.addObject("name",name);
+		mv.addObject("data", data);
+
+		return mv;
+	}
+
+	// @RequestMapping(value = "/sample/getJson", method = RequestMethod.GET)
+	// public @ResponseBody Map<String, Object> getServer(HttpServletRequest
+	// request, HttpServletResponse response) {
+	// System.out.println("GET Server Response");
+	// Map<String, Object> map = new HashMap<String, Object>();
+	// // 클라이언트 페이지로 부터 Httpclient로 받은 parameter값
+	//
+	//
+	// map.put("param1", request.getParameter("param1"));
+	// map.put("param2", request.getParameter("param2"));
+	// map.put("flag", "get");
+	// map.put("success", true);
+	// return map;
+	// }
+
 }
