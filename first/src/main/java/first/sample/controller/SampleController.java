@@ -110,14 +110,15 @@ public class SampleController {
 	@ResponseBody
 	public ModelAndView data(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mv = new ModelAndView("/sample/getJson");
-		String data = request.getParameter("data");
+		String data = null;
+		data = request.getParameter("data");
 
 		JSONParser jPaser = new JSONParser();
 
 		JSONObject jsonObj = (JSONObject) jPaser.parse(data);
 		String name = (String) jsonObj.get("name");
-		
-		mv.addObject("name",name);
+
+		mv.addObject("name", name);
 		mv.addObject("data", data);
 
 		return mv;
