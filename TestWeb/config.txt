@@ -1,0 +1,1 @@
+Project4|PK161203|JPG|C:\TCS | 2016-12-03 | 2016-12-08 / 192.168.50.10| 21| tcs| 1234 / project_name|project_key|first_name|last_name|email_addr|email_agree|email_auto|sns_addr|sns_agree|sns_auto|img_name
